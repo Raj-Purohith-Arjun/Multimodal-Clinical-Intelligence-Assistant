@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from io import BytesIO
 
-import torch
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from PIL import Image
 
@@ -18,7 +17,8 @@ class InferenceService:
 
     def analyze(self, clinical_text: str, image: Image.Image) -> AnalyzeResponse:
         text_signal = min(len(clinical_text) / 512.0, 1.0)
-        image_signal = float(torch.tensor(image.size).float().mean().item() / 1024.0)
+        width, height = image.size
+        image_signal = ((width + height) / 2.0) / 1024.0
         anomaly = max(0.0, min(1.0, 0.2 + 0.5 * text_signal + 0.3 * image_signal))
         diagnosis = int((anomaly * 10) % 5)
         return AnalyzeResponse(

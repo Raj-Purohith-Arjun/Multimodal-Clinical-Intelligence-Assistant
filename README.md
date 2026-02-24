@@ -54,6 +54,25 @@ docker run --gpus all -p 8000:8000 multimodal-clinical-assistant
 ### AWS
 See `docs/aws_deployment.md` for ECR/ECS, g4dn setup, S3 artifact storage, and CloudWatch logging.
 
+
+## Running in Codex (quick demo)
+Yes—this can be run directly in the Codex container.
+
+```bash
+pip install fastapi uvicorn pillow python-multipart httpx
+./scripts/run_api_demo.sh 8000
+```
+
+In a second terminal/session:
+```bash
+curl -X POST http://localhost:8000/analyze   -F "clinical_text=Patient presents with cough and chest pain"   -F "image=@data/raw/demo_xray.png"
+```
+
+If you want full training/evaluation (not just API demo), install all dependencies:
+```bash
+pip install -r requirements.txt
+```
+
 ## 7) API Usage
 `POST /analyze`
 - form field: `clinical_text`

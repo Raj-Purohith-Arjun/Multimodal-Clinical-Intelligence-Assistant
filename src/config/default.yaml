@@ -1,0 +1,40 @@
+experiment:
+  name: multimodal_clinical_assistant
+  seed: 42
+  output_dir: artifacts
+  mlflow_tracking_uri: ./mlruns
+
+model:
+  text_model_name: emilyalsentzer/Bio_ClinicalBERT
+  image_backbone: resnet50
+  hidden_dim: 768
+  fusion_heads: 8
+  fusion_dropout: 0.1
+  num_classes: 5
+  max_report_len: 128
+
+training:
+  batch_size: 8
+  num_workers: 2
+  epochs: 20
+  learning_rate: 2.0e-4
+  weight_decay: 1.0e-5
+  patience: 5
+  grad_clip_norm: 1.0
+  mixed_precision: true
+  scheduler_t_max: 20
+
+data:
+  image_size: 224
+  text_max_length: 256
+  train_csv: data/processed/train.csv
+  val_csv: data/processed/val.csv
+  test_csv: data/processed/test.csv
+
+evaluation:
+  metrics_output: artifacts/metrics.json
+  plots_dir: artifacts/plots
+
+inference:
+  checkpoint_path: artifacts/checkpoints/best_model.pt
+  device: cuda

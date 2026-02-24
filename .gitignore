@@ -7,3 +7,4 @@ mlruns/
 .ipynb_checkpoints/
 .DS_Store
 data/processed/images/
+*.egg-info/

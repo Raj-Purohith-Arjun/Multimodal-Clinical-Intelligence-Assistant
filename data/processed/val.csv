@@ -1,0 +1,2 @@
+patient_id,clinical_text,image_path,label,anomaly_score,report
+P-0001,Patient with chest discomfort and mild dyspnea.,data/processed/images/sample_1.png,1,0.4712063507904929,No acute cardiopulmonary findings.

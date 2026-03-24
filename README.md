@@ -1,13 +1,5 @@
 # Multimodal Clinical Intelligence Assistant
 
-## What was weak in the previous README
-- It presented simulated performance and impact numbers as if they were measured results.
-- It implied production inference in the FastAPI layer, while `api/app.py` currently uses a heuristic `InferenceService` and does not load model checkpoints.
-- It did not clearly separate implemented capabilities (training pipeline, fusion model components) from placeholders/stubs (evaluation entrypoint, benchmark stub, generated report text).
-- It did not document important current limitations: synthetic data dependence, no missing-modality handling, no class-imbalance strategy, and limited deployment observability in code.
-
----
-
 ## Overview
 This repository is a **multimodal ML system scaffold** for combining:
 - clinical free text (`clinical_text`)
@@ -161,13 +153,4 @@ Based on current code behavior:
 5. Add serving observability (structured request metrics, latency percentiles, error-rate dashboards).
 6. Add realistic deployment benchmarking (batching, concurrency, GPU/CPU profile).
 
----
 
-## Assumptions avoided
-The following were intentionally **not** included because the repository does not provide direct evidence:
-- No claim of production-grade clinical deployment.
-- No claim that `/analyze` is backed by trained model inference.
-- No claim of real-world accuracy/F1/ROC/BLEU numbers.
-- No claim of quantified clinical workflow impact (e.g., review-time reduction).
-- No claim of implemented ablation studies or multi-strategy fusion comparisons.
-- No claim of built-in fairness, drift monitoring, or PHI-safe logging enforcement.

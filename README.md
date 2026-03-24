@@ -24,7 +24,7 @@ It should currently be treated as a **research/development template**, not a val
 ## Real-World Problem Framing (and Current Constraints)
 Clinical workflows often require reasoning across notes and imaging. The repository targets that direction, but current implementation constraints are important:
 - Dataset generation is synthetic by default (`src/data/synthetic_data.py`).
-- API responses are heuristic/demo outputs (`api/app.py`), not predictions from a loaded trained checkpoint.
+- API responses are heuristic/demo outputs (`api/app.py`), not predictions from a loaded trained model checkpoint.
 - No built-in handling for missing image modality or corrupted files in dataset loading.
 - No class-imbalance mitigation (standard losses, no weighted sampling).
 
@@ -63,7 +63,7 @@ Implemented in `src/training/trainer.py` and `src/training/train.py`:
 - Evaluator class in `src/evaluation/evaluator.py`:
   - metric aggregation and JSON export
   - simple latency/throughput benchmark helper around model forward passes
-- `src/evaluation/run_evaluation.py` is currently a placeholder wiring entrypoint.
+- `src/evaluation/run_evaluation.py` is currently a placeholder evaluation entry point.
 - `src/inference/benchmark.py` is currently a stub benchmark (not full model serving benchmark).
 
 ## Fusion Strategy (what exists)
@@ -121,7 +121,7 @@ python -m uvicorn api.app:app --host 0.0.0.0 --port 8000
 ### Input validation that exists
 - non-empty `clinical_text`
 - image MIME type check (`image/*`)
-- image payload parseability check via Pillow
+- image payload parsability check via Pillow
 
 ### Important deployment realism note
 `POST /analyze` currently uses `InferenceService` heuristic logic derived from text length and image size. It does **not** call `src/inference/predictor.py` or load `artifacts/checkpoints/best_model.pt`.
